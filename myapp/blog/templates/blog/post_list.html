@@ -1,0 +1,25 @@
+{% extends 'blog/base.html' %}
+
+{% block content %}
+  <p>블로그 게시판입니다.</p>
+  {% if posts %}
+    <table class="table table-bordered">
+      <tr>
+        <td>순서</td>
+        <td>제목</td>
+        <td>내용</td>
+        <td>작성날짜</td>
+      </tr>
+      {% for post in posts %}
+        <tr>                
+          <td><a href="{% url 'blog:detail' pk=post.pk %}" class="btn">{{ post.id }}</a></td>
+          <td><a href="{% url 'blog:detail' pk=post.pk %}" class="btn">{{ post.title }}</a></td>
+          <td><a href="{% url 'blog:detail' pk=post.pk %}" class="btn">{{ post.content }}</a></td>
+          <td><a href="{% url 'blog:detail' pk=post.pk %}" class="btn">{{ post.created_at }}</a></td>
+        </tr>
+      {% endfor %}
+    </table>
+  {% else %}
+    <p>글이없습니다.</p>
+  {% endif %}
+{% endblock %}

@@ -1,0 +1,25 @@
+{% extends 'blog/base.html' %}
+
+{% block content %}
+  {% if post %}
+    <p>내용입니다.</p>
+    <table class="table table-bordered">
+      <tr>
+        <td>제목</td>
+        <td>{{ post.title }}</td>
+      </tr>
+      <tr>
+        <td>내용</td>
+        <td>{{ post.content }}</td>
+      </tr>
+      <tr>
+        <td>날짜</td>
+        <td>{{ post.created_at }}</td>
+      </tr>
+      
+    </table>
+    <td><a href="{% url 'blog:list' %}" class="btn btn-outline-success">뒤로가기</a></td>
+  {% else %}
+    <p>글이없습니다.</p>
+  {% endif %}
+{% endblock %}
