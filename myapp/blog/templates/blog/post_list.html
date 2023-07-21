@@ -2,12 +2,14 @@
 
 {% block content %}
   <p>블로그 게시판입니다.</p>
+  <a href="{% url 'blog:write' %}" class="btn btn-outline-success">글 작성</a>
   {% if posts %}
     <table class="table table-bordered">
       <tr>
         <td>순서</td>
         <td>제목</td>
         <td>내용</td>
+        <td>수정날짜</td>
         <td>작성날짜</td>
       </tr>
       {% for post in posts %}
@@ -15,6 +17,7 @@
           <td><a href="{% url 'blog:detail' pk=post.pk %}" class="btn">{{ post.id }}</a></td>
           <td><a href="{% url 'blog:detail' pk=post.pk %}" class="btn">{{ post.title }}</a></td>
           <td><a href="{% url 'blog:detail' pk=post.pk %}" class="btn">{{ post.content }}</a></td>
+          <td><a href="{% url 'blog:detail' pk=post.pk %}" class="btn">{{ post.updated_at }}</a></td>
           <td><a href="{% url 'blog:detail' pk=post.pk %}" class="btn">{{ post.created_at }}</a></td>
         </tr>
       {% endfor %}
