@@ -1,3 +1,2 @@
 # DjagoBlog
 djangoblogproject
-/refs
