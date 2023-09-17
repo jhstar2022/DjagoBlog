@@ -1,12 +1,10 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Index</title>
-  </head>
-  <body>
-    <!-- <a href=""></a> -->
-    <a href="/blog/">블로그 가기</a>
-  </body>
-</html>
+{% extends 'base.html' %}
+{% load i18n %}
+
+{% block content %}
+  <h1>{% trans 'Index page' %}</h1>
+  <h2>{% trans 'Welcome!' %}</h2>
+  <a href="{% url 'user:register' %}" class="btn">{% trans 'Register' %}</a>
+  <a href="{% url 'user:login' %}" class="btn">{% trans 'Login' %}</a>
+  <a href="/blog/">블로그 가기</a>
+{% endblock %}

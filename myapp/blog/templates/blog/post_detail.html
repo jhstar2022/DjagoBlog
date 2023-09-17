@@ -1,61 +1,88 @@
-{% extends 'blog/base.html' %}
+{% extends 'base.html' %}
+{% load i18n %}
 
 {% block content %}
-  {% if post %}
-    <p>내용입니다.</p>
-    <a href="{% url 'blog:edit' pk=post.pk %}" class="btn">수정</a>
-    <table class="table table-bordered">
-      <tr>
-        <td>제목</td>
-        <td>{{ post.title }}</td>
-      </tr>
-      <tr>
-        <td>내용</td>
-        <td>{{ post.content }}</td>
-      </tr>
-      <tr>
-        <td>수정날짜</td>
-        <td>{{ post.updated_at }}</td>
-      </tr>
-      <tr>
-        <td>작성날짜</td>
-        <td>{{ post.created_at }}</td>
-      </tr>
-      
-    </table>
-    <form action="{% url 'blog:delete' pk=post.pk %}" method="post">
+
+    <h2>{% trans 'Title:' %} {{ post_title }}</h2>
+
+    {% if post_writer == request.user %}
+        <a href="{% url 'blog:edit' pk=post_id %}" class="btn">{% trans 'Edit' %}</a>
+        <form action="{% url 'blog:delete' pk=post_id %}" method="post">
+            {% csrf_token %}
+            <input type="submit" value="{% trans 'Delete' %}" class="btn">
+        </form>
+    {% endif %}
+
+    <p>{% trans 'Content:' %} {{ post_content }}</p>
+    <p>{% trans 'Writer:' %} {{ post_writer }}</p>
+    <p>{% trans 'Date:' %} {{ post_created_at }}</p>
+    <hr>
+
+    <!-- 작성 화면 -->
+    <h3>댓글</h3>
+    <form action="{% url 'blog:cm-write' pk=post_id %}" method="post">
         {% csrf_token %}
-        <input type="submit" value="삭제" class="btn">
+        {% if comment_form.errors %}
+            {% with form=comment_form %}
+                {% include 'blog/form_error.html' %}
+            {% endwith %}
+        {% else %}
+            {{ comment_form.content }}
+        {% endif %}
+        <input type="submit" value="{% trans 'Submit' %}">
     </form>
+    <br>
+    
+    <!-- comments -->
+    {% if comments %}
+        <ul>
+            {% for comment in comments %}
+                <li>{{ comment.content }} / {{ comment.created_at }}
+                    {% if comment.writer == request.user %}
+                        <form action="{% url 'blog:cm-delete' pk=comment.pk %}" method="post">
+                            {% csrf_token %}
+                            <input type="submit" value="X" class='btn'>
+                        </form>
+                    {% endif %}
+                </li>
+            {% endfor %}
+        </ul>
     {% else %}
-    <p>글이없습니다.</p>
-  {% endif %}
-<!-- 작성 화면 -->
-<h3>댓글</h3>
-<form action="{% url 'blog:cm-write' pk=post.pk %}" method="post">
-    {% csrf_token %}
-    {{ comment_form.content }}
-    <input type="submit" value="댓글 작성">
-</form>
-<br>
-<!-- comments -->
-<!-- if 문 -->
-{% if comments %}
-    <ul>
-      <!-- for 문 -->
-        {% for comment in comments %}
-        <!-- 내용, 작성시간, 삭제 버튼 -->
-            <li>{{ comment.content }} / {{ comment.created_at }}
-                <form action="{% url 'blog:cm-delete' pk=comment.pk %}" method="post">
-                    {% csrf_token %}
-                    <input type="submit" value="X" class="btn">
-                </form>
+        <p>{% trans 'There is no comment.' %}</p>
+    {% endif %}
+    <hr>
+
+    <!-- hashtags -->
+    <h3>해시태그</h3>
+    <form action="{% url 'blog:tag-write' pk=post_id %}" method="post">
+        {% csrf_token %}
+        {% if hashtag_form.errors %}
+            {% with form=hashtag_form %}
+                {% include 'blog/form_error.html' %}
+            {% endwith %}
+        {% else %}
+            {{ hashtag_form.name }}
+        {% endif %}
+        <input type="submit" value="{% trans 'Submit' %}">
+    </form>
+
+    {% if hashtags %}
+        <ul>
+            {% for hashtag in hashtags %}
+            <li>
+                {{ hashtag }}
+                {% if hashtag.writer == request.user %}
+                    <form action="{% url 'blog:tag-delete' pk=hashtag.pk %}" method="post">
+                        {% csrf_token %}
+                        <input type="submit" value="X" class='btn'>
+                    </form>
+                {% endif %}
             </li>
-        {% endfor %}
-    </ul>
-{% else %}
-    <p>댓글이 없습니다.</p>
-{% endif %}
-<td><a href="{% url 'blog:list' %}" class="btn btn-outline-success">목록으로</a></td>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <br>
+        <p>{% trans 'There is no hashtag.' %}</p>
+    {% endif %}
 
 {% endblock %}
