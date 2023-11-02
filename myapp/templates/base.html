@@ -25,8 +25,7 @@
         <a href="{% url 'user:login' %}" class="btn">Login</a>
       {% endif %}
 
-      <br /><br />
-      <h1>Blog</h1>
+      <h1><a href="{% url 'blog:list' %}">Blog</a></h1>
 
       {% block content %}
 
