@@ -16,12 +16,19 @@
 
 ### 시작 화면 입니다.
 
-<p>게시판 첫 화면 입니다.</p>
+<p>유저들이 작성한 글 리스트를 볼 수 있습니다.</p>
 <img width="700" alt="image" src="/myapp/static/myapp/images/시작화면.png">
+<br/>
+
+### 게시판 글 작성 화면 입니다.
+
+<p>타이틀과 내용을 입력하여 게시글을 작성할 수 있습니다.</p>
+<img width="700" alt="image" src="/myapp/static/myapp/images/글작성화면.png">
 <br/>
 
 ### 디테일 화면 입니다.
 
 <p>게시판에서 해당 글을 선택하면 자세한 내용을 볼 수 있습니다.</p>
+<p>게시글,댓글작성자는 해당 글을 작성하거나 삭제할 수 있습니다.</p>
 <img width="700" alt="image" src="/myapp/static/myapp/images/디테일화면.png">
 <br/>
