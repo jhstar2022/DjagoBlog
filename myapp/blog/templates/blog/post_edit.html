@@ -2,16 +2,14 @@
 {% load i18n %}
 
 {% block content %}
-
-{% if form.errors %}
+  {% if form.errors %}
     {% include 'blog/form_error.html' %}
-{% else %}
+  {% else %}
     {% trans 'Welcome!' %}
     <form action="{% url 'blog:edit' pk=post.pk %}" method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <input type="submit" value="{% trans 'Edit' %}">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <input type="submit" value="{% trans 'Edit' %}" />
     </form>
-{% endif %}
-{%  %}
+  {% endif %}
 {% endblock %}
