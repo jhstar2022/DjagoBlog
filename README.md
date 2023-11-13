@@ -27,3 +27,7 @@
 <p>게시판에서 해당 글을 선택하면 자세한 내용을 볼 수 있습니다.</p>
 <p>게시글,댓글작성자는 해당 글을 작성하거나 삭제할 수 있습니다.</p>
 <img width="700" alt="image" src="/myapp/static/myapp/images/디테일화면.png">
+
+### ERD
+
+<img width="700" alt="image" src="/myapp/static/myapp/images/ERD.png">
