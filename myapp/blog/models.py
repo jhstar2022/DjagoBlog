@@ -7,7 +7,7 @@ User = get_user_model()
 # Create your models here.
 class Post(models.Model):
     title = models.CharField(max_length=30)
-    content = models.TextField(max_length=2000)
+    content = models.TextField()
     writer = models.ForeignKey(User, on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -15,7 +15,7 @@ class Post(models.Model):
 
 class Comment(models.Model):
     post = models.ForeignKey('Post', on_delete=models.CASCADE)
-    content = models.TextField()
+    content = models.TextField(max_length=500)
     writer = models.ForeignKey(User, on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
     
